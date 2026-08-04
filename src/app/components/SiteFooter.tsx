@@ -22,6 +22,7 @@ export default function SiteFooter() {
             <Link href="/gallery">Gallery</Link>
             <Link href="/location">Location</Link>
             <Link href="/about">About Rhythm Prime</Link>
+            <Link href="/contact">Contact</Link>
             <Link href="/book">Book Now</Link>
           </div>
         </div>

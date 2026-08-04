@@ -49,7 +49,7 @@ export default function RoomDetailClient(props: Props) {
             {props.notes?.map((note) => <p className="rp-note" key={note}>{note}</p>)}
           </div>
           <div className="rp-room-gallery">
-            <div className="rp-room-gallery__main"><Image src={current.src} alt={current.alt} fill sizes="(max-width: 720px) 100vw, 50vw" /></div>
+            <div className="rp-room-gallery__main"><Image src={current.src} alt={current.alt} fill sizes="(max-width: 720px) 100vw, 50vw" style={{objectFit:"cover"}} /></div>
             <div className="rp-room-gallery__tabs" role="tablist" aria-label={`${props.name} gallery`}>
               {props.gallery.map((item, index) => (
                 <button key={item.label} type="button" aria-pressed={active === index} onClick={() => setActive(index)}>{item.label}</button>

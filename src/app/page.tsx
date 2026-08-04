@@ -144,9 +144,7 @@ export default function Home() {
           <p className="eyebrow">LUXURY LIFESTYLE HOTEL · PHUKET</p>
 
           <h1>
-            Find Your Rhythm.
-            <br />
-            Stay Awhile.
+            A New Rhythm of Seaside Luxury
           </h1>
 
           <p className="hero-description">

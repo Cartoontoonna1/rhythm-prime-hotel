@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import "./hotel.css";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 type FloorDetail = {
   key: string;
@@ -12,279 +13,71 @@ type FloorDetail = {
   heading: string;
   description: string;
   features: string[];
-  cta?: string;
-  ctaId?: string;
-  dataEvent?: string;
+  image: string;
+  alt: string;
   href?: string;
+  cta?: string;
 };
 
 const floorDetails: FloorDetail[] = [
-  {
-    key: "10F",
-    label: "10F — Rooftop Bar & Dining",
-    heading: "Rooftop Bar & Dining",
-    description:
-      "The highest rhythm of the hotel — sunset cocktails, fine dining, music and open-air nights above Phuket.",
-    features: ["Cocktail Bar", "Sunset Deck", "Fine Dining", "Private Dining", "DJ Area", "Indoor Air-Conditioned Lounge", "Open-Air Dining"],
-    cta: "EXPLORE ROOFTOP",
-    ctaId: "hotel-floor-rooftop",
-    dataEvent: "hotel_floor_select",
-    href: "/#rooftop",
-  },
-  {
-    key: "09F",
-    label: "09F — Curved Infinity Pool",
-    heading: "Pool & Day Pass",
-    description: "A flowing infinity pool experience overlooking the Andaman Sea.",
-    features: ["Curved Infinity Pool", "Pool Bar", "Day Pass Zone", "In-Pool Lounge", "Cabanas", "Sunset Viewing"],
-    cta: "EXPLORE POOL & DAY PASS",
-    ctaId: "hotel-floor-pool",
-    dataEvent: "hotel_floor_select",
-    href: "/#pool",
-  },
-  {
-    key: "08F",
-    label: "08F — Wellness & Spa",
-    heading: "Wellness & Spa",
-    description: "A restorative floor designed for movement, recovery and quiet.",
-    features: ["Spa Reception", "Treatment Rooms", "Premium Gym", "3 Sauna Rooms", "Steam Area", "Yoga / Stretching", "Relaxation Lounge"],
-    cta: "EXPLORE WELLNESS",
-    ctaId: "hotel-floor-wellness",
-    dataEvent: "hotel_floor_select",
-    href: "/#wellness",
-  },
-  {
-    key: "07F",
-    label: "07F — Rhythm Signature Suites",
-    heading: "Rhythm Signature Suites",
-    description: "The most spacious and elevated residential experience at Rhythm Prime.",
-    features: ["Approx. 95 sqm suites", "Separate Bedroom", "Living Area", "Dining Area", "Panoramic Ocean View", "Oversized Bathtub", "Private Balcony"],
-    cta: "VIEW SIGNATURE SUITE",
-    ctaId: "hotel-floor-signature",
-    dataEvent: "hotel_floor_select",
-    href: "/book?room=signature",
-  },
-  {
-    key: "06F",
-    label: "06F — Premier Ocean View Rooms",
-    heading: "Premier Ocean View Rooms",
-    description: "Elevated rooms designed around panoramic views and slower mornings.",
-    features: ["Approx. 55 sqm", "Private Balcony", "Ocean View", "Freestanding Bathtub", "Separate Rain Shower"],
-    cta: "VIEW PREMIER ROOMS",
-    ctaId: "hotel-floor-premier",
-    dataEvent: "hotel_floor_select",
-    href: "/book?room=premier",
-  },
-  {
-    key: "05F",
-    label: "05F — Premier Ocean View Rooms",
-    heading: "Premier Ocean View Rooms",
-    description: "Elevated rooms designed around panoramic views and slower mornings.",
-    features: ["Approx. 55 sqm", "Private Balcony", "Ocean View", "Freestanding Bathtub", "Separate Rain Shower"],
-    cta: "VIEW PREMIER ROOMS",
-    ctaId: "hotel-floor-premier-2",
-    dataEvent: "hotel_floor_select",
-    href: "/book?room=premier",
-  },
-  {
-    key: "04F",
-    label: "04F — Deluxe Rooms",
-    heading: "Deluxe Rooms",
-    description: "Spacious rooms designed for comfort, calm and relaxed island stays.",
-    features: ["Approx. 48 sqm", "Private Balcony", "Rain Shower", "No Bathtub"],
-    cta: "VIEW DELUXE ROOMS",
-    ctaId: "hotel-floor-deluxe",
-    dataEvent: "hotel_floor_select",
-    href: "/book?room=deluxe",
-  },
-  {
-    key: "03F",
-    label: "03F — Deluxe Rooms",
-    heading: "Deluxe Rooms",
-    description: "Spacious rooms designed for comfort, calm and relaxed island stays.",
-    features: ["Approx. 48 sqm", "Private Balcony", "Rain Shower", "No Bathtub"],
-    cta: "VIEW DELUXE ROOMS",
-    ctaId: "hotel-floor-deluxe-2",
-    dataEvent: "hotel_floor_select",
-    href: "/book?room=deluxe",
-  },
-  {
-    key: "02F",
-    label: "02F — Ocean Restaurant & Meetings",
-    heading: "Ocean Restaurant & Meetings",
-    description: "The social and business heart of Rhythm Prime with sea views and flexible gathering spaces.",
-    features: ["Ocean Restaurant", "Private Dining", "Large Meeting Room", "Small Meeting Room", "Corporate Events", "Company Outings"],
-    cta: "EXPLORE DINING & EVENTS",
-    ctaId: "hotel-floor-dining",
-    dataEvent: "hotel_floor_select",
-    href: "/#dining",
-  },
-  {
-    key: "01F",
-    label: "01F — Grand Lobby, Concierge & Café",
-    heading: "Grand Lobby, Concierge & Café",
-    description: "The arrival experience and architectural heart of Rhythm Prime.",
-    features: ["Grand Lobby", "Reception", "Concierge", "Café", "Reflection Pool", "Rhythm Staircase", "Grand Piano"],
-    cta: "DISCOVER THE LOBBY",
-    ctaId: "hotel-floor-lobby",
-    dataEvent: "hotel_floor_select",
-    href: "/#story",
-  },
-  {
-    key: "G",
-    label: "G — Parking & Back-of-House",
-    heading: "Parking & Back-of-House",
-    description: "Operational and guest arrival support spaces.",
-    features: ["Guest Parking", "Service Access", "Back-of-House Operations"],
-  },
+  {key:"10F",label:"Rooftop Bar & Dining",heading:"Rooftop Bar & Dining",description:"The highest rhythm of the hotel — sunset cocktails, dining, music and open-air nights above Phuket.",features:["Cocktail Bar","Sunset Deck","Fine & Private Dining","Indoor Glass Lounge","Open-Air Seating","Discreet DJ Area"],image:"/images/home/rhythm-prime_rooftop.png.png",alt:"Rhythm Prime rooftop at sunset",href:"/rooftop",cta:"Explore Rooftop"},
+  {key:"09F",label:"Curved Infinity Pool",heading:"Pool & Day Pass",description:"A flowing infinity-pool experience shaped around the Andaman horizon.",features:["Curved Infinity Pool","Pool Bar","Day Pass","Sunken Lounge","Cabanas","Sunset Viewing"],image:"/images/home/rhythm-prime_curved-infinity-pool.png.png",alt:"Curved infinity pool overlooking Phuket",href:"/pool",cta:"Explore Pool & Day Pass"},
+  {key:"08F",label:"Wellness & Spa",heading:"Wellness & Spa",description:"A restorative floor designed for movement, recovery and quiet.",features:["Spa Reception","Treatment Rooms","Three Sauna Rooms","Steam Room","Fitness","Yoga / Stretch","Relaxation Lounge"],image:"/images/home/rhythm-prime_spa-wellness.png.png",alt:"Rhythm Prime wellness and spa",href:"/wellness",cta:"Explore Wellness"},
+  {key:"07F",label:"Rhythm Signature Suites",heading:"Rhythm Signature Suites",description:"The most spacious accommodation experience at Rhythm Prime.",features:["95 sqm","Master Bedroom","Living Area","Dining Area","Oversized Bathtub","Panoramic Ocean View","Private Balcony"],image:"/images/home/rhythm-prime_signature-suite.png.png",alt:"Rhythm Signature Suite",href:"/rooms/signature",cta:"View Signature Suite"},
+  {key:"06F",label:"Premier Ocean View Rooms",heading:"Premier Ocean View Rooms",description:"Elevated rooms designed around panoramic views and slower mornings.",features:["55 sqm","Private Balcony","Ocean View","Indoor Freestanding Bathtub","Separate Rain Shower"],image:"/images/home/rhythm-prime_premier-ocean-view.png.png",alt:"Premier Ocean View room",href:"/rooms/premier",cta:"View Premier"},
+  {key:"05F",label:"Premier Ocean View Rooms",heading:"Premier Ocean View Rooms",description:"Elevated rooms designed around panoramic views and slower mornings.",features:["55 sqm","Private Balcony","Ocean View","Indoor Freestanding Bathtub","Separate Rain Shower"],image:"/images/home/rhythm-prime_premier-ocean-view.png.png",alt:"Premier Ocean View room",href:"/rooms/premier",cta:"View Premier"},
+  {key:"04F",label:"Deluxe Rooms",heading:"Deluxe Rooms",description:"Spacious rooms designed for comfort, calm and relaxed island stays.",features:["48 sqm","Private Balcony","Rain Shower","No Bathtub"],image:"/images/home/rhythm-prime_deluxe-room.png.png",alt:"Deluxe room",href:"/rooms/deluxe",cta:"View Deluxe"},
+  {key:"03F",label:"Deluxe Rooms",heading:"Deluxe Rooms",description:"Spacious rooms designed for comfort, calm and relaxed island stays.",features:["48 sqm","Private Balcony","Rain Shower","No Bathtub"],image:"/images/home/rhythm-prime_deluxe-room.png.png",alt:"Deluxe room",href:"/rooms/deluxe",cta:"View Deluxe"},
+  {key:"02F",label:"Ocean Restaurant & Meetings",heading:"Ocean Restaurant & Meetings",description:"The social and business heart of Rhythm Prime with sea views and flexible gathering spaces.",features:["Ocean Restaurant","Breakfast","Private Dining","Grand Event Room","Private Meeting Room"],image:"/images/home/rhythm-prime_ocean-restaurant.png.png",alt:"Ocean Restaurant at Rhythm Prime",href:"/dining",cta:"Explore Dining"},
+  {key:"01F",label:"Grand Lobby, Concierge & Café",heading:"Grand Lobby, Concierge & Café",description:"The arrival experience and architectural heart of Rhythm Prime.",features:["Grand Lobby","Reception","Concierge","Café","Reflection Pool","Rhythm Staircase","Grand Piano"],image:"/images/home/rhythm-prime_grand-lobby-staircase.png.png",alt:"Rhythm Prime grand lobby staircase",href:"/about",cta:"Discover the Story"},
 ];
 
 function normalizeFloor(value: string) {
-  const trimmed = value.trim().toUpperCase();
-  if (trimmed === "10") return "10F";
-  if (trimmed === "9") return "09F";
-  if (trimmed === "8") return "08F";
-  if (trimmed === "7") return "07F";
-  if (trimmed === "6") return "06F";
-  if (trimmed === "5") return "05F";
-  if (trimmed === "4") return "04F";
-  if (trimmed === "3") return "03F";
-  if (trimmed === "2") return "02F";
-  if (trimmed === "1") return "01F";
-  return trimmed;
+  const n = value.trim().toUpperCase().replace("F", "");
+  if (n === "10") return "10F";
+  const parsed = Number(n);
+  if (Number.isFinite(parsed) && parsed >= 1 && parsed <= 9) return `${String(parsed).padStart(2,"0")}F`;
+  return "10F";
 }
-
-function toQueryFloor(value: string) {
-  if (value === "10F") return "10";
-  if (value === "09F") return "9";
-  if (value === "08F") return "8";
-  if (value === "07F") return "7";
-  if (value === "06F") return "6";
-  if (value === "05F") return "5";
-  if (value === "04F") return "4";
-  if (value === "03F") return "3";
-  if (value === "02F") return "2";
-  if (value === "01F") return "1";
-  return value;
-}
+function toQueryFloor(value: string) { return String(Number(value.replace("F",""))); }
 
 export default function HotelPageClient() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const floorParam = searchParams.get("floor");
-
-  const selectedFloor = useMemo(() => {
-    const normalized = normalizeFloor(floorParam ?? "10");
-    return floorDetails.find((floor) => floor.key === normalized)?.key ?? "10F";
-  }, [floorParam]);
-
-  const activeFloor = useMemo(
-    () => floorDetails.find((floor) => floor.key === selectedFloor) ?? floorDetails[0],
-    [selectedFloor]
-  );
-
-  const handleFloorSelect = (floorKey: string) => {
+  const selectedFloor = useMemo(() => normalizeFloor(searchParams.get("floor") ?? "10"), [searchParams]);
+  const active = useMemo(() => floorDetails.find((item) => item.key === selectedFloor) ?? floorDetails[0], [selectedFloor]);
+  const chooseFloor = (key: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("floor", toQueryFloor(floorKey));
+    params.set("floor", toQueryFloor(key));
     router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
-    <main className="hotel-page" data-event="hotel_floor_select">
-      <header className="internal-header">
-        <div className="container internal-header__inner">
-          <Link href="/" className="brand brand--dark">
-            RHYTHM PRIME
-          </Link>
-
-          <nav className="internal-nav" aria-label="Hotel overview navigation">
-            <Link href="/">Home</Link>
-            <Link href="/hotel">Hotel</Link>
-            <Link href="/#rooms">Rooms</Link>
-            <Link href="/#dining">Dining</Link>
-            <Link href="/#pool">Pool</Link>
-            <Link href="/#rooftop">Rooftop</Link>
-            <Link href="/#wellness">Wellness</Link>
-            <Link href="/#meetings">Meetings & Events</Link>
-          </nav>
-
-          <Link href="/book" className="book-button book-button--current">
-            BOOK NOW
-          </Link>
-        </div>
-      </header>
-
-      <div className="container breadcrumb" aria-label="Breadcrumb">
-        <Link href="/">HOME</Link>
-        <span>/</span>
-        <span>EXPLORE HOTEL</span>
-      </div>
-
-      <section className="hotel-hero">
-        <div className="container hotel-hero__content">
-          <div className="hotel-hero__copy">
-            <p className="eyebrow">EXPLORE RHYTHM PRIME</p>
-            <h1>Ten Floors. One Complete Experience.</h1>
-            <p>
-              From arrival to sunset, every floor at Rhythm Prime is designed around a different rhythm of the stay.
-            </p>
-            <a href="#rooms" className="btn btn-primary">
-              EXPLORE BY FLOOR
-            </a>
-          </div>
-
-          <div className="image-frame hotel-hero__visual">
-            <Image
-              src="/images/home/rhythm_hotel_overview.png"
-              alt="Editorial overview of Rhythm Prime and its floors"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
-          </div>
+    <main className="rp-shell">
+      <SiteHeader />
+      <section className="rp-section rp-section--warm">
+        <div className="rp-container rp-grid-2">
+          <div><p className="rp-eyebrow">EXPLORE RHYTHM PRIME</p><h1 className="rp-title">Ten Floors. One Complete Experience.</h1><p className="rp-subtitle">Select a floor to see how the guest journey moves from arrival and rooms to dining, wellness, pool and rooftop.</p></div>
+          <div className="rp-image rp-image--landscape"><Image src="/images/home/rhythm_hotel_overview.png" alt="Conceptual overview of Rhythm Prime floors" fill priority sizes="(max-width:720px) 100vw,50vw" /></div>
         </div>
       </section>
 
-      <section id="rooms" className="explorer-section">
-        <div className="container explorer-shell">
-          <div className="explorer-list" role="list">
-            {floorDetails.map((floor) => {
-              const isActive = floor.key === activeFloor.key;
-              return (
-                <button
-                  key={floor.key}
-                  type="button"
-                  className={`explorer-row ${isActive ? "explorer-row--active" : ""}`}
-                  onClick={() => handleFloorSelect(floor.key)}
-                  data-event="hotel_floor_select"
-                  data-floor={floor.key}
-                  data-floor-name={floor.heading}
-                >
-                  <span className="explorer-row__floor">{floor.key}</span>
-                  <span className="explorer-row__name">{floor.label}</span>
-                </button>
-              );
-            })}
+      <section className="rp-section">
+        <div className="rp-container rp-grid-2" style={{alignItems:"start"}}>
+          <div>
+            <p className="rp-eyebrow">SELECT A FLOOR</p>
+            <div className="rp-floor-strip" style={{gridTemplateColumns:"repeat(2,minmax(0,1fr))"}}>
+              {floorDetails.map((floor) => <button key={floor.key} type="button" className="rp-floor-chip" style={{textAlign:"left",cursor:"pointer",borderColor: active.key === floor.key ? "var(--rp-gold)" : undefined}} onClick={() => chooseFloor(floor.key)} aria-pressed={active.key === floor.key}><strong>{floor.key}</strong><span>{floor.label}</span></button>)}
+            </div>
           </div>
-
-          <div className="explorer-detail" aria-live="polite">
-            <p className="eyebrow">FLOOR DETAIL</p>
-            <h2>{activeFloor.heading}</h2>
-            <p>{activeFloor.description}</p>
-            <ul className="feature-list feature-list--stacked">
-              {activeFloor.features.map((feature) => (
-                <li key={feature}>{feature}</li>
-              ))}
-            </ul>
-            {activeFloor.cta && activeFloor.href ? (
-              <Link href={activeFloor.href} className="btn btn-outline" id={activeFloor.ctaId} data-event={activeFloor.dataEvent}>
-                {activeFloor.cta}
-              </Link>
-            ) : null}
+          <div>
+            <div className="rp-image rp-image--landscape" style={{marginBottom:"26px"}}><Image src={active.image} alt={active.alt} fill sizes="(max-width:720px) 100vw,50vw" /></div>
+            <p className="rp-eyebrow">{active.key} · FLOOR DETAIL</p><h2 className="rp-title" style={{fontSize:"clamp(2.3rem,4vw,4rem)"}}>{active.heading}</h2><p className="rp-subtitle">{active.description}</p><ul className="rp-feature-list">{active.features.map((feature)=><li key={feature}>{feature}</li>)}</ul>{active.href && active.cta ? <div className="rp-actions"><Link href={active.href} className="rp-button rp-button--gold">{active.cta}</Link></div> : null}
           </div>
         </div>
       </section>
+      <SiteFooter />
     </main>
   );
 }

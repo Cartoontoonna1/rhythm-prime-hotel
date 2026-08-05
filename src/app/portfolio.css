@@ -130,3 +130,32 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
+
+
+/* Location map — informational artwork must remain fully visible */
+.rp-image--map {
+  aspect-ratio: 1536 / 1024;
+  min-height: 0;
+  background: #f7f3ee;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.rp-image--map img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.rp-image--map:hover img {
+  transform: none;
+}
+
+@media (max-width: 720px) {
+  .rp-image--map {
+    width: 100%;
+    aspect-ratio: 1536 / 1024;
+    border-radius: 20px;
+  }
+}
